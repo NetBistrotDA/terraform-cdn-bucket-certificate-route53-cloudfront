@@ -8,12 +8,16 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-1"
+  region                   = "eu-west-1"
+  shared_credentials_files = ["$HOME/.aws/credentials"]
+  profile                  = "profile"
 }
 
 provider "aws" {
-  alias  = "virginia"
-  region = "us-east-1"
+  alias                    = "virginia"
+  region                   = "us-east-1"
+  shared_credentials_files = ["$HOME/.aws/credentials"]
+  profile                  = "profile"
 }
 
 locals {

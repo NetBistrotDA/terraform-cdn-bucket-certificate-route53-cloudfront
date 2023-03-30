@@ -9,3 +9,5 @@ terraform configuration file to create a CDN with:
 - cloudFront
 
 - Route53 DNS entry
+
+[Outsource Terraform projects with NetBistrot](https://netbistrot.com/en/outsourcing/)
