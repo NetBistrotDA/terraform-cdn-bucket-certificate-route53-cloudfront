@@ -48,6 +48,15 @@ The root_domain_name must be in a Route53 hosted zone.
 
 The domain_name will be the prefix for access the cdn objects.
 
+Use the commands:
+
+```
+terraform init
+```
+```
+terraform apply
+```
+
 This version considers the April 2023 updated security defaults for new S3 buckets.
 
 See the [issue](https://github.com/hashicorp/terraform-provider-aws/issues/28353).
