@@ -16,7 +16,7 @@ How to use:
 git clone https://github.com/NetBistrotDA/terraform-cdn-bucket-certificate-route53-cloudfront.git
 ```
 
-set up variables:
+set up variables in main.tf:
 
 ```tf
 provider "aws" {
