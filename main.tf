@@ -37,6 +37,21 @@ resource "aws_s3_bucket" "b" {
 
 data "aws_canonical_user_id" "current" {}
 
+resource "aws_s3_bucket_public_access_block" "b" {
+  bucket = aws_s3_bucket.b.id
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_ownership_controls" "b" {
+  bucket = aws_s3_bucket.b.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
 
 resource "aws_s3_bucket_acl" "b" {
   bucket = aws_s3_bucket.b.id
@@ -52,6 +67,10 @@ resource "aws_s3_bucket_acl" "b" {
       id = data.aws_canonical_user_id.current.id
     }
   }
+    depends_on = [
+    aws_s3_bucket_public_access_block.b,
+    aws_s3_bucket_ownership_controls.b,
+  ]
 }
 
 resource "aws_s3_bucket_cors_configuration" "b" {
@@ -84,7 +103,7 @@ data "aws_route53_zone" "selected" {
   name = local.root_domain_name
 }
 
-resource "aws_route53_record" "example" {
+resource "aws_route53_record" "record" {
   for_each = {
     for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
